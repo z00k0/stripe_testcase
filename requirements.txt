@@ -1,0 +1,4 @@
+Django==4.1.7
+python-dotenv==0.21.1
+stripe==5.2.0
+
