@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+  <body class="container">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        {% for item in order.items.all %}
+        <h5 class="card-title">{{ item.item.name }} x {{ item.amount }}</h5>
+        <p class="card-text">Price: {{ item.order_price }}</p>
+        {% endfor %}
+      </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Total price: {{ order.total_price }}</li>
+        </ul>
+        <button id="buy-button" class="btn btn-primary">Buy</button>
+    </div>
+
+    {% csrf_token %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+      var buyButton = document.getElementById('buy-button');
+      buyButton.addEventListener('click', function() {
+        fetch("{% url 'buy-order' order.pk %}", {
+          method: 'GET',
+          
+        })
+        .then(response => {return response.json()})
+        .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
+      });
+    </script>
+  </body>
+
+  {% endblock %}

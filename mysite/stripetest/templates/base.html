@@ -8,11 +8,12 @@
     </head>
     <body>
         <ul class="nav">
-            <div>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'items' %}">Items</a>
             </li>
-            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'orders' %}">Orders</a>
+            </li>
         </ul>
         {% block body %}
         {% endblock %}

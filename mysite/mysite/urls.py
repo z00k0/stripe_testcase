@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from stripetest.views import BuyView, ItemView, SuccessView, CancelView, ItemListView
+from stripetest.views import (
+    BuyView,
+    ItemView,
+    SuccessView,
+    CancelView,
+    ItemListView,
+    OrderView,
+    OrderListView,
+    BuyOrderView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -24,4 +33,7 @@ urlpatterns = [
     path("success/", SuccessView.as_view(), name="success"),
     path("cancel/", CancelView.as_view(), name="cancel"),
     path("items/", ItemListView.as_view(), name="items"),
+    path("orders/", OrderListView.as_view(), name="orders"),
+    path("order/<int:id>", OrderView.as_view(), name="order"),
+    path("buy-order/<int:id>", BuyOrderView.as_view(), name="buy-order"),
 ]
